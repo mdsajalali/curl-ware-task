@@ -2,7 +2,6 @@
 
 This is a simple todo application built using React.js and styled with Tailwind CSS.
 
-[Live-Link](curl-ware-task.vercel.app/)
 
 ## Features
 
