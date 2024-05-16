@@ -7,6 +7,7 @@ const App = () => {
   const [todos, setTodos] = useState(initialTodos);
   const [filter, setFilter] = useState("all");
   const [newTodoText, setNewTodoText] = useState("");
+  const [newTodoSubtitle, setNewTodoSubtitle] = useState("");
   const [editTodo, setEditTodo] = useState(null);
 
   useEffect(() => {
@@ -33,29 +34,42 @@ const App = () => {
     setNewTodoText(e.target.value);
   };
 
+  const handleNewTodoSubtitleChange = (e) => {
+    setNewTodoSubtitle(e.target.value);
+  };
+
   const handleNewTodoSubmit = (e) => {
     e.preventDefault();
     if (newTodoText.trim() !== "") {
       if (editTodo) {
         setTodos(
           todos.map((todo) =>
-            todo.id === editTodo.id ? { ...todo, text: newTodoText } : todo
+            todo.id === editTodo.id
+              ? { ...todo, text: newTodoText, subtitle: newTodoSubtitle }
+              : todo
           )
         );
         setEditTodo(null);
       } else {
         setTodos([
           ...todos,
-          { id: Date.now(), text: newTodoText, completed: false },
+          {
+            id: Date.now(),
+            text: newTodoText,
+            subtitle: newTodoSubtitle,
+            completed: false,
+          },
         ]);
       }
       setNewTodoText("");
+      setNewTodoSubtitle("");
     }
   };
 
   const handleEditTodo = (todo) => {
     setEditTodo(todo);
     setNewTodoText(todo.text);
+    setNewTodoSubtitle(todo.subtitle);
   };
 
   const filteredTodos = todos.filter((todo) => {
@@ -71,19 +85,31 @@ const App = () => {
   return (
     <div className="max-w-md mx-auto mt-8 px-4 sm:px-6 lg:px-8">
       <h1 className="text-3xl font-bold mb-4">Todo App</h1>
-      <form onSubmit={handleNewTodoSubmit} className="mb-4 flex">
-        <input
-          type="text"
-          placeholder="Enter new todo"
-          value={newTodoText}
-          onChange={handleNewTodoChange}
-          className="flex-grow px-3 py-2 border border-gray-300 rounded mr-2"
-        />
+      <form
+        onSubmit={handleNewTodoSubmit}
+        className="mb-4 flex justify-center items-center gap-5"
+      >
+        <div>
+          <input
+            type="text"
+            placeholder="Title"
+            value={newTodoText}
+            onChange={handleNewTodoChange}
+            className="px-3 w-full py-2 border border-gray-300 rounded mb-2 outline-[#9395D3]"
+          />
+          <input
+            type="text"
+            placeholder="Detail"
+            value={newTodoSubtitle}
+            onChange={handleNewTodoSubtitleChange}
+            className="px-3 w-full py-2 border border-gray-300 rounded mb-2 outline-[#9395D3]"
+          />
+        </div>
         <button
           type="submit"
-          className="px-4 py-2 bg-blue-500 text-white rounded"
+          className="px-4 py-2 bg-[#9395D3] text-white rounded"
         >
-          Add Todo
+          ADD
         </button>
       </form>
       <div className="mb-4">
@@ -91,31 +117,31 @@ const App = () => {
           onClick={() => handleFilterChange("all")}
           className={`px-2 py-1 ${
             filter === "all"
-              ? "bg-blue-500 text-white rounded"
+              ? "bg-[#9395D3] text-white rounded"
               : "bg-gray-200 text-gray-700 rounded"
           } mr-2`}
         >
-          Show All
+          All
         </button>
         <button
           onClick={() => handleFilterChange("incomplete")}
           className={`px-2 py-1 ${
             filter === "incomplete"
-              ? "bg-blue-500 text-white rounded"
+              ? "bg-[#9395D3] text-white rounded"
               : "bg-gray-200 text-gray-700 rounded"
           } mr-2`}
         >
-          Show Incomplete
+          Incomplete
         </button>
         <button
           onClick={() => handleFilterChange("completed")}
           className={`px-2 py-1 ${
             filter === "completed"
-              ? "bg-blue-500 text-white rounded"
+              ? "bg-[#9395D3] text-white rounded"
               : "bg-gray-200 text-gray-700 rounded"
           }`}
         >
-          Show Completed
+          Completed
         </button>
       </div>
       {filteredTodos.map((todo) => (

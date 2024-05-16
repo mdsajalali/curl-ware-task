@@ -17,7 +17,10 @@ const Todo = ({ todo, toggleComplete, deleteTodo, onEdit }) => {
         todo.completed ? "text-gray-400 line-through" : ""
       }`}
     >
-      <span>{todo.text}</span>
+      <div>
+        <h3 className="text-lg font-semibold">{todo.text}</h3>
+        <p className="text-sm text-gray-600">{todo.subtitle}</p>
+      </div>
       <div>
         <button
           onClick={handleCompleteClick}
