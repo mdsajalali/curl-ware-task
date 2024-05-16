@@ -1,3 +1,7 @@
+import { FaPen } from "react-icons/fa6";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { FaCircleCheck } from "react-icons/fa6";
+
 const Todo = ({ todo, toggleComplete, deleteTodo, onEdit }) => {
   const handleCompleteClick = () => {
     toggleComplete(todo.id);
@@ -21,24 +25,24 @@ const Todo = ({ todo, toggleComplete, deleteTodo, onEdit }) => {
         <h3 className="text-lg font-semibold">{todo.text}</h3>
         <p className="text-sm text-gray-600">{todo.subtitle}</p>
       </div>
-      <div>
+      <div className="flex gap-2">
         <button
           onClick={handleCompleteClick}
-          className="px-2 py-1 mr-2 bg-green-500 text-white rounded text-xs sm:text-sm lg:text-base"
+          className="px-2 py-1 bg-gray-100  w-8 h-8 rounded-full   text-xs sm:text-sm lg:text-base"
         >
-          Complete
+          <FaCircleCheck />
         </button>
         <button
           onClick={handleEditClick}
-          className="px-2 py-1 mr-2 bg-yellow-500 text-white rounded text-xs sm:text-sm lg:text-base"
+          className="px-2 py-1 bg-gray-100  w-8 h-8 rounded-full   text-xs sm:text-sm lg:text-base"
         >
-          Edit
+          <FaPen />
         </button>
         <button
           onClick={handleDeleteClick}
-          className="px-2 py-1 bg-red-500 text-white rounded text-xs sm:text-sm lg:text-base"
+          className="px-2 py-1 bg-gray-100  w-8 h-8 rounded-full   text-xs sm:text-sm lg:text-base"
         >
-          Delete
+          <RiDeleteBin6Line />
         </button>
       </div>
     </div>
